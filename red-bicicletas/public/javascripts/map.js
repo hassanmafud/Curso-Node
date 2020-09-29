@@ -10,7 +10,14 @@ var mymap = L.map('main_map').setView([-31.4488265,-64.1847824,17], 13);
 		zoomOffset: -1
     }).addTo(mymap);
     
-L.marker([-31.4485668,-64.1849058,19]).addTo(mymap);
-L.marker([-31.4423305,-64.1946111,17]).addTo(mymap);
-
+$.ajax({
+	dataType: "json",
+	url: "api/bicicletas",
+	success: function(result){
+		console.log(result);
+		result.bicicletas.forEach(function(bici){
+			L.marker(bici.ubicacion, {title: bici.id }).addTo(mymap);
+		});
+	}
+})
     
